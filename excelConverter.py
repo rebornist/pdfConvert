@@ -57,7 +57,7 @@ class ExcelConverter:
 
             depts = dst.split('\\')
             for i in range(len(depts)):
-                path = '\\'.join(depts[:i])
+                path = '/'.join(depts[2:i])
                 if path != '':
                     if not os.path.exists(path):
                         try:
@@ -118,25 +118,25 @@ class ExcelConverter:
         # 인쇄 옵션으로 이동 후 매뉴 선택
         x = 549
         y = 435
-        pyautogui.moveTo(x, y, 1)
+        pyautogui.moveTo(x, y)
         pyautogui.click()
 
         # 대기시간
-        time.sleep(2)
+        time.sleep(1)
 
         # 전체 시트 인쇄 옵션 선택
         x = 549
         y = 526
-        pyautogui.moveTo(x, y, 1)
+        pyautogui.moveTo(x, y)
         pyautogui.click()
 
         # 대기시간
-        time.sleep(2)
+        time.sleep(1)
 
         # 출력 선택
         x = 435
         y = 216
-        pyautogui.moveTo(x, y, 1)
+        pyautogui.moveTo(x, y)
         pyautogui.click()
 
         # 대기시간
@@ -150,9 +150,6 @@ class ExcelConverter:
 
         # 저장 버튼 실행
         pyautogui.hotkey('alt', 's')
-
-        # 대기시간
-        time.sleep(10)
 
 
 if __name__ == '__main__':

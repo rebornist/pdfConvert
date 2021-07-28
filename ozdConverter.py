@@ -42,7 +42,7 @@ class OzdConverter:
 
             depts = dst.split('\\')
             for i in range(len(depts)):
-                path = '\\'.join(depts[:i])
+                path = '/'.join(depts[2:i])
                 if path != '':
                     if not os.path.exists(path):
                         try:
