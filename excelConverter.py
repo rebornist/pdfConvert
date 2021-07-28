@@ -37,11 +37,14 @@ class ExcelConverter:
         self.excel.Visible = True
 
         try:
-            self.excel.Workbooks.Open(src)
+            wb = self.excel.Workbooks.Open(src)
+            sheet_names = [sheet.Name for sheet in wb.Sheets]
+            return len(sheet_names)
         except Exception as e:
             print("excel open error:", e, src)
+            return 0
 
-    def close_viewer(self, wb):
+    def close_viewer(self):
         try:
             self.excel.Quit()
         except Exception as e:
@@ -151,9 +154,6 @@ class ExcelConverter:
         # 저장 버튼 실행
         pyautogui.hotkey('alt', 's')
 
-        # 대기시간
-        time.sleep(10)
-
 
 if __name__ == '__main__':
 
@@ -173,13 +173,15 @@ if __name__ == '__main__':
             dst = data[2]
             try:
                 # 엑셀 뷰어 실행
-                wb = o.open_viewer(src)
+                sheets = o.open_viewer(src)
 
                 # 대기시간
                 time.sleep(3)
 
                 # pdf 변환 이벤트 실행
                 o.auto_event(src, dst)
+
+                time.sleep(sheets)
 
                 # 성공 메시지 전송
                 o.results.append([data[0], src, dst, 'Y', ''])
@@ -194,7 +196,7 @@ if __name__ == '__main__':
             time.sleep(3)
 
             # 엑셀 뷰어 닫기
-            o.close_viewer(wb)
+            o.close_viewer()
 
         else:
 
