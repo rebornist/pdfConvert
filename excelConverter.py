@@ -55,6 +55,18 @@ class ExcelConverter:
             src = data[1].value
             dst = data[2].value
 
+            depts = dst.split('\\')
+            for i in range(len(depts)):
+                path = '\\'.join(depts[:i])
+                if path != '':
+                    if not os.path.exists(path):
+                        try:
+                            os.mkdir(path)
+                        except Exception as e:
+                            print(e)
+                            self.results.append([data[0], src, dst, "N", e])
+                            continue
+
             if not os.path.exists(src):
                 print(f'{src} is not exist')
                 o.results.append(
