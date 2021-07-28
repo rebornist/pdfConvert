@@ -151,6 +151,9 @@ class ExcelConverter:
         # 저장 버튼 실행
         pyautogui.hotkey('alt', 's')
 
+        # 대기시간
+        time.sleep(10)
+
 
 if __name__ == '__main__':
 
