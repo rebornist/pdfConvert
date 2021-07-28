@@ -40,6 +40,18 @@ class OzdConverter:
                 print(f'{dst} is already exist')
                 continue
 
+            depts = dst.split('\\')
+            for i in range(len(depts)):
+                path = '\\'.join(depts[:i])
+                if path != '':
+                    if not os.path.exists(path):
+                        try:
+                            os.mkdir(path)
+                        except Exception as e:
+                            print(e)
+                            self.results.append([data[0], src, dst, "N", e])
+                            continue
+
             self.data.append([data[0].value, src, dst])
 
         wb.close()
